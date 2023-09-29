@@ -1,0 +1,17 @@
+.card {
+    flex: 1;
+    padding: 2.5rem;
+    .icon {
+      width: 100px;
+      border: 10px solid $color-secondary;
+      border-radius: 50%;
+      padding: 1rem;
+    }
+    .title {
+      margin-top: 20px;
+      color: black;
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+  }
