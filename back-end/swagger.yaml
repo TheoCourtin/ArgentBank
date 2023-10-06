@@ -6,6 +6,9 @@ info:
   termsOfService: 'http://swagger.io/terms/'
 host: localhost:3001
 basePath: /api/v1
+tags:
+  - name: User Module
+  - name: Transaction Module
 schemes:
   - http
 paths:

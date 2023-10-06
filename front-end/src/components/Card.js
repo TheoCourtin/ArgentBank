@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * Returns a React component displays card on the home page
+ * @param {string}, Params of icon, title, text
+ * @returns React Component
+ */
+
 const Card = ({ icon, title, text }) => {
   return (
     <div className="card">

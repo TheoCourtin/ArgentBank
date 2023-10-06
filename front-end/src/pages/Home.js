@@ -4,6 +4,11 @@ import Chat from "../assets/icon-chat.png";
 import Money from "../assets/icon-money.png";
 import Security from "../assets/icon-security.png";
 
+/**
+ * Returns a React component displays the Home page
+ * @returns React Component
+ */
+
 const Home = () => {
   return (
   <main className="home">

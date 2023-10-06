@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/argentBankLogo.png";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "../feature/user.slice";
 
+/**
+ * Returns a React component displays the header
+ * @returns React Component
+ */
 const Header = () => {
+  const [connected, setConnected] = useState(false);
+  const {firstName, isConnected } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const handleDisconnect = () => {
+    dispatch(logOut());
+  };
+
+  useEffect(() => {
+    setConnected(isConnected);
+  }, [isConnected]);
+
   return (
     <header>
       <nav className="main-nav">
@@ -16,10 +34,27 @@ const Header = () => {
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div>
-          <Link className="main-nav-item" href="./sign-in.html">
-            <FaUserCircle />
-            Sign In
-          </Link>
+          {connected ? (
+            <>
+              <Link className="main-nav-item" to={"/user"}>
+                <FaUserCircle />
+                {firstName}
+              </Link>
+              <Link
+                className="main-nav-item"
+                onClick={() => handleDisconnect()}
+                to={"/"}
+              >
+                <FaSignOutAlt />
+                Sign Out
+              </Link>
+            </>
+          ) : (
+            <Link className="main-nav-item" to={"/signin"}>
+              <FaUserCircle />
+              Sign In
+            </Link>
+          )}
         </div>
       </nav>
     </header>

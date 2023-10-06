@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * Returns a React component displays the Error page
+ * @returns React Component
+ */
+
 const Error = () => {
 return (
   <main className="main bg-dark">
