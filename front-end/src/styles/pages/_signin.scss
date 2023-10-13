@@ -5,10 +5,16 @@
   
     .sign-in-content {
       box-sizing: border-box;
-      background-color: white;
+      background-color: $white;
       width: 300px;
       margin: 0 auto;
       padding: 2rem;
+      border: 2px solid $color-secondary;
+      border-radius: 5px;
+
+    h1 {
+      margin-bottom: 20px;
+    }
   
       .sign-in-icon {
         font-size: 5rem;
@@ -17,13 +23,14 @@
       .sign-in-button {
         display: block;
         width: 100%;
-        padding: 8px;
+        padding: 8px 0px;
         font-size: 1.1rem;
         font-weight: bold;
         margin-top: 1rem;
-        border-color: #00bc77;
-        background-color: #00bc77;
-        color: #fff;
+        border-color: $color-secondary;
+        background-color: $color-secondary;
+        color: $white;
+        border-radius: 5px;
       }
   
       .input-remember {
@@ -41,10 +48,12 @@
   
         & label {
           font-weight: bold;
+          margin-bottom: 5px;
         }
         & input {
           padding: 5px;
           font-size: 1.2rem;
+          border-radius: 5px;
         }
       }
     }

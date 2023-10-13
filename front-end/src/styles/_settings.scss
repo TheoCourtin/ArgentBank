@@ -6,6 +6,7 @@ $color-tertiary: #12002b;
 $white: #fff;
 $black: #222;
 $grey: #ccc;
+$cancel: #b94252;
 
 * {
   padding: 0;
@@ -36,6 +37,15 @@ a {
   color: $color-primary;
   text-decoration: none;
 }
+
+button,
+a,
+input {
+  cursor: pointer;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
+
+
 
 .sr-only {
   border: 0 !important;

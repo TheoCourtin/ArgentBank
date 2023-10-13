@@ -2,15 +2,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-    background-color: #fff;
+    background-color: $white;
     width: 80%;
     margin: 0 auto;
     flex-direction: column;
     padding: 1.5rem;
     box-sizing: border-box;
     text-align: left;
-    margin-bottom: 2rem;
+    border: 3px solid $color-secondary;
+    border-radius: 5px;
+
+    .account-content-wrapper {
+      text-align: center;
+    }
   
     .account-content-wrapper {
       width: 100%;
@@ -35,27 +39,28 @@
   
     .transaction-button {
       display: block;
-      width: 100%;
-      padding: 8px;
+      width: auto;
+      padding: 10px 25px;
+      color: $white;
+      border-color: $color-secondary;
+      border-radius: 5px;
       font-size: 1.1rem;
       font-weight: bold;
-      margin-top: 1rem;
-      border-color: #00bc77;
-      background-color: #00bc77;
-      color: #fff;
+      background-color: $color-secondary;
+      margin-top: 20px;
     }
   }
   
   @media (min-width: 720px) {
     .account {
       flex-direction: row;
-    }
+
+      .account-content-wrapper {
+        text-align: left;
+      }
   
-    .account-content-wrapper.cta {
-      flex: 0;
-    }
-  
-    .transaction-button {
-      width: 200px;
-    }
+      .transaction-button {
+        margin-top: 0;
+      }
+    }  
   }

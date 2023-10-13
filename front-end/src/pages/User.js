@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Account from "../components/Account";
 import { getUser } from "../feature/user.slice";
@@ -103,7 +104,19 @@ const User = () => {
       </main>
     );
   }
-  //si il n'est pas connecté, return vers signin
+  else {
+    return (
+      <main className="main bg-dark">
+        <div className="error">
+          <span>401</span>
+          <p className="error-text">
+            Vous devez être connecté pour accéder à cette page !
+          </p>
+          <Link to="/signin">Accéder à la page de connexion</Link>
+        </div>
+      </main>
+    );
+  }
 };
 
 export default User;
