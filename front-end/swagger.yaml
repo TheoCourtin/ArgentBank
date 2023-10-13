@@ -1,0 +1,413 @@
+swagger: "2.0"
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+host: localhost:3001
+basePath: /api/v1
+tags:
+  - name: User Module
+  - name: Transaction Module
+schemes:
+  - http
+paths:
+  /user/login:
+    post:
+      tags:
+        - User Module
+      summary: Login
+      description: API for Login
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Login"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Login Successfully
+          schema:
+            $ref: "#/definitions/LoginResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/signup:
+    post:
+      tags:
+        - User Module
+      summary: Signup
+      description: API for Signup
+      parameters:
+        - in: body
+          name: body
+          description: Signup Payload
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Signup Successfully
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/profile:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for fetching a user profile
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User profile retrieved successully
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: User Profile API
+      description: API for updating a user profile
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Update user profile attributes
+          required: true
+          schema:
+            $ref: "#/definitions/UserProfile"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User profile retrieved successully
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/transaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: User Profile API
+      description: API for fetching the list of transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User transaction retrieved successully
+          schema:
+            $ref: "#/definitions/Transactions"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: User Profile API
+      description: Delete a transaction to the database
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Delete with ID of the transaction
+          required: true
+          schema:
+            $ref: "#/definitions/BodyTransactionsId"
+      produces:
+        - application/json
+      responses:
+        "204":
+          description: Demande to delete transaction
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/transaction/details:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: User Profile API
+      description: API for fetching transaction lists for the current month by Id
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Id details
+          required: true
+          schema:
+            $ref: "#/definitions/BodyTransactionsId"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User transaction retrieved successully
+          schema:
+            $ref: "#/definitions/TransactionsDetails"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/transaction/edit/category:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: User Profile API
+      description: Edit the category transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Send a category
+          required: true
+          schema:
+            $ref: "#/definitions/BodyEditCategory"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User transaction retrieved successully
+          schema:
+            $ref: "#/definitions/EditTransaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/transaction/edit/notes:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: User Profile API
+      description: Edit the note transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Send a note
+          required: true
+          schema:
+            $ref: "#/definitions/BodyEditNote"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User transaction retrieved successully
+          schema:
+            $ref: "#/definitions/EditTransaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  User:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+  Login:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+  BodyTransactionsId:
+    type: object
+    description: transaction lists for the current month
+    properties:
+      id:
+        type: integer
+        description: id of transaction
+  BodyEditCategory:
+    type: object
+    description: Edit category of transaction
+    properties:
+      id:
+        type: integer
+        description: id of transaction
+      category:
+        type: string
+        description: category of transaction
+  BodyEditNote:
+    type: object
+    description: Edit notes of transaction
+    properties:
+      id:
+        type: integer
+        description: id of transaction
+      note:
+        type: string
+        description: notes of transaction
+  Transactions:
+    type: object
+    description: transaction lists for the current month
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+            description: id of transaction
+          date:
+            type: string
+            description: date of transaction
+          description:
+            type: string
+            description: description of the transaction
+          amount:
+            type: string
+            description: transaction amount($)
+          balance:
+            type: string
+            description: balance ($)
+  TransactionsDetails:
+    type: object
+    description: transaction lists for the current month
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+            description: transaction id
+          date:
+            type: string
+            description: date of transaction
+          description:
+            type: string
+            description: description of the transaction
+          amount:
+            type: string
+            description: transaction amount($)
+          balance:
+            type: string
+            description: balance ($)
+          transaction type:
+            type: string
+            description: type of transaction
+          category:
+            type: string
+            description: category of transaction
+          notes:
+            type: string
+            description: notes of transaction
+  EditTransaction:
+    type: object
+    description: Api response
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
