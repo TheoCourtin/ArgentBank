@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Account from "../components/Account";
 import { getUser } from "../feature/user.slice";
@@ -16,10 +16,17 @@ const User = () => {
   const user = useSelector((state) => state.user);
   const validToken = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setFirstName(user.firstName);
-    setLastName(user.lastName);
+    if (validToken) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    } else {
+      setTimeout(() => {
+        navigate("/signin");
+      }, 3000);
+    }
   }, [user]);
 
   const handleSubmit = async (e) => {
