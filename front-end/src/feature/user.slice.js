@@ -36,10 +36,12 @@ export const userSlice = createSlice({
         isConnected: true,
         email: action.payload.email,
         token: `${action.payload.token}`,
+        rememberMe: true,
       };
     },
 
-    logOut: (state, action) => {
+    logOut: (state) => {
+      localStorage.removeItem("token"); // Supprimer 
       if (state.rememberMe) {
         return {
           ...state,

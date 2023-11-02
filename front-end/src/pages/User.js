@@ -25,8 +25,9 @@ const User = () => {
     } else {
       setTimeout(() => {
         navigate("/signin");
-      }, 3000);
+      }, 5000);
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const handleSubmit = async (e) => {
@@ -110,14 +111,14 @@ const User = () => {
         />
       </main>
     );
-  }
-  else {
+  } else {
     return (
       <main className="main bg-dark">
         <div className="error">
           <span>401</span>
           <p className="error-text">
-            Vous devez être connecté pour accéder à cette page !
+            Vous devez être connecté pour accéder à cette page ! <br /> La
+            redirection se fera automatiquement dans 5 secondes.
           </p>
           <Link to="/signin">Accéder à la page de connexion</Link>
         </div>

@@ -42,7 +42,7 @@ const Header = () => {
               </Link>
               <Link
                 className="main-nav-item"
-                onClick={() => handleDisconnect()}
+                onClick={handleDisconnect}
                 to={"/"}
               >
                 <FaSignOutAlt />
