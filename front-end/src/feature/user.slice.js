@@ -22,13 +22,14 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    getUser: (state, action) => {
+    updateUser: (state, action) => {
       return {
         ...state,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
       };
     },
+    
 
     getToken: (state, action) => {
       return {
@@ -65,5 +66,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { getUser, getToken, logOut } = userSlice.actions;
+export const { updateUser, getToken, logOut } = userSlice.actions;
 export default userSlice.reducer;

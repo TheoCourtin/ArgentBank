@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState  } from "react";
+import { Link, useNavigate,  } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Account from "../components/Account";
-import { getUser } from "../feature/user.slice";
-import CallAPI from "../services/CallAPI";
+import { updateUser } from "../feature/user.slice";
+import callAPI from "../services/CallAPI";
 
 /**
  * Returns a React component displays the user page
@@ -13,29 +13,41 @@ const User = () => {
   const [editContent, setEditContent] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const user = useSelector((state) => state.user);
-  const validToken = useSelector((state) => state.user.token);
+  const user = useState("");
+  const validToken = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (validToken) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-    } else {
-      setTimeout(() => {
-        navigate("/signin");
-      }, 5000);
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {           
+     setUser(storedToken);
+     setFirstName(user.firstName);
+     setLastName(user.lastName);     
+    } else {   
+        navigate("/signin");     
+    }    
+  }, []);
+
+  const setUser = async (token) => {
+    try {
+      const data = await callAPI.getUserInfo(token);
+      console.log("Data from CallAPI.getUserInfo:", data);
+      dispatch(updateUser({ firstName: data.firstName, lastName: data.lastName }));
+    } catch (error) {
+      console.error("Error while fetching user data:", error);
     }
-    // eslint-disable-next-line
-  }, [user]);
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await CallAPI.setUserInfo(validToken, { firstName, lastName });
-    dispatch(getUser({ firstName: firstName, lastName: lastName }));
+    await callAPI.setUserInfo(validToken, { firstName, lastName });
+    dispatch(updateUser({ firstName: firstName,  lastName: lastName }));
     setEditContent(false);
   };
+
+  
 
   if (validToken) {
     return (
