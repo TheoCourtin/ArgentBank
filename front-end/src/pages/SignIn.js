@@ -19,6 +19,7 @@ const SignIn = () => {
   useEffect(() => {
     if (localStorage.getItem("rememberMe")) {
       setEmail(localStorage.getItem("username"), );
+      
 
       setRememberMe(true);
     }
@@ -64,7 +65,8 @@ const SignIn = () => {
       <section className="sign-in-content">
         <span className="fa fa-user-circle sign-in-icon"></span>
 
-        <h1>Sign In</h1>
+
+        <h1>Sign In</h1>       
 
         <form>
           <div className="input-wrapper">

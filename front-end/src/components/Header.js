@@ -34,11 +34,11 @@ const Header = () => {
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div className="main-nav-container">
-          {connected ? (
+          {connected || localStorage.getItem("rememberMe") ? (
             <>
               <Link className="main-nav-item" to={"/user"}>
                 <FaUserCircle />
-                {firstName}
+                {firstName ? firstName : localStorage.getItem("firstName")}
               </Link>
               <Link
                 className="main-nav-item"

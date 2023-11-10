@@ -12,9 +12,8 @@ import callAPI from "../services/CallAPI";
 const User = () => {
   const [editContent, setEditContent] = useState(false);
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const user = useState("");
-  const validToken = useState("");
+  const [lastName, setLastName] = useState(""); 
+  const [validToken, setValidToken] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,8 +21,7 @@ const User = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {           
      setUser(storedToken);
-     setFirstName(user.firstName);
-     setLastName(user.lastName);     
+     setValidToken(storedToken);    
     } else {   
         navigate("/signin");     
     }    
@@ -34,6 +32,10 @@ const User = () => {
       const data = await callAPI.getUserInfo(token);
       console.log("Data from CallAPI.getUserInfo:", data);
       dispatch(updateUser({ firstName: data.firstName, lastName: data.lastName }));
+
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      localStorage.setItem("firstName", data.firstName );      
     } catch (error) {
       console.error("Error while fetching user data:", error);
     }
@@ -43,7 +45,8 @@ const User = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await callAPI.setUserInfo(validToken, { firstName, lastName });
-    dispatch(updateUser({ firstName: firstName,  lastName: lastName }));
+    dispatch(updateUser({ firstName,  lastName }));
+    localStorage.setItem("firstName", firstName );
     setEditContent(false);
   };
 
@@ -94,7 +97,7 @@ const User = () => {
               <h1>
                 Welcome back
                 <br />
-                {user.firstName} {user.lastName} !
+                {firstName} {lastName} !
               </h1>
               <button
                 className="edit-button"

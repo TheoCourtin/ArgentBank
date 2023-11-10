@@ -41,8 +41,8 @@ export const userSlice = createSlice({
       };
     },
 
-    logOut: (state) => {
-      localStorage.removeItem("token"); // Supprimer 
+    logOut: (state) => {      
+      localStorage.clear() 
       if (state.rememberMe) {
         return {
           ...state,
