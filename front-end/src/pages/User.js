@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Account from "../components/Account";
 import { updateUser } from "../feature/user.slice";
 import callAPI from "../services/CallAPI";
@@ -14,17 +14,17 @@ const User = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [validToken, setValidToken] = useState("");
+  const {token, getToken} = useSelector((state) => state.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
+    // console.log(token);
+    const storedToken = localStorage.getItem("token") ||  token ;    
     if (storedToken) {
-      setUser(storedToken);
+      setUser(storedToken);          
       setValidToken(storedToken);
-    } else {
-      navigate("/signin");
-    }
+    } 
   }, []);
 
   const setUser = async (token) => {
@@ -51,7 +51,7 @@ const User = () => {
     setEditContent(false);
   };
 
-  if (validToken) {
+  if (firstName) {
     return (
       <main className="user main bg-dark">
         <div className="header">
