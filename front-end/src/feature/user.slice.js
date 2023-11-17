@@ -29,7 +29,6 @@ export const userSlice = createSlice({
         lastName: action.payload.lastName,
       };
     },
-    
 
     getToken: (state, action) => {
       return {
@@ -41,8 +40,8 @@ export const userSlice = createSlice({
       };
     },
 
-    logOut: (state) => {      
-      localStorage.clear() 
+    logOut: (state) => {
+      localStorage.clear();
       if (state.rememberMe) {
         return {
           ...state,

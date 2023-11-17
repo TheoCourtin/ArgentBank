@@ -1,5 +1,5 @@
-import React, { useEffect, useState  } from "react";
-import { Link, useNavigate,  } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Account from "../components/Account";
 import { updateUser } from "../feature/user.slice";
@@ -12,45 +12,44 @@ import callAPI from "../services/CallAPI";
 const User = () => {
   const [editContent, setEditContent] = useState(false);
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState(""); 
+  const [lastName, setLastName] = useState("");
   const [validToken, setValidToken] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    if (storedToken) {           
-     setUser(storedToken);
-     setValidToken(storedToken);    
-    } else {   
-        navigate("/signin");     
-    }    
+    if (storedToken) {
+      setUser(storedToken);
+      setValidToken(storedToken);
+    } else {
+      navigate("/signin");
+    }
   }, []);
 
   const setUser = async (token) => {
     try {
       const data = await callAPI.getUserInfo(token);
       console.log("Data from CallAPI.getUserInfo:", data);
-      dispatch(updateUser({ firstName: data.firstName, lastName: data.lastName }));
+      dispatch(
+        updateUser({ firstName: data.firstName, lastName: data.lastName })
+      );
 
       setFirstName(data.firstName);
       setLastName(data.lastName);
-      localStorage.setItem("firstName", data.firstName );      
+      localStorage.setItem("firstName", data.firstName);
     } catch (error) {
       console.error("Error while fetching user data:", error);
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await callAPI.setUserInfo(validToken, { firstName, lastName });
-    dispatch(updateUser({ firstName,  lastName }));
-    localStorage.setItem("firstName", firstName );
+    dispatch(updateUser({ firstName, lastName }));
+    localStorage.setItem("firstName", firstName);
     setEditContent(false);
   };
-
-  
 
   if (validToken) {
     return (

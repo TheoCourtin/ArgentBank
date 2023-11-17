@@ -18,8 +18,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (localStorage.getItem("rememberMe")) {
-      setEmail(localStorage.getItem("username"), );
-      
+      setEmail(localStorage.getItem("username"));
 
       setRememberMe(true);
     }
@@ -31,8 +30,6 @@ const SignIn = () => {
       dispatch(getToken({ token: res, email: email }));
 
       if (rememberMe) {
-        // localStorage.setItem("username", email);
-        // localStorage.setItem("password", password);
         localStorage.setItem("rememberMe", true);
         localStorage.setItem("token", res);
         console.log(res);
@@ -40,17 +37,12 @@ const SignIn = () => {
           "Information d'authentification stockées dans le localStorage"
         );
       } else {
-        // localStorage.removeItem("username");
-        // localStorage.removeItem("password");
         localStorage.removeItem("rememberMe");
         localStorage.removeItem("token", res);
         console.log(
           "Informations d'authentification supprimées du localStorage"
         );
-        // Redirigez vers la page "User" après avoir obtenu le token
-     
       }
-     
     }
   };
 
@@ -65,8 +57,7 @@ const SignIn = () => {
       <section className="sign-in-content">
         <span className="fa fa-user-circle sign-in-icon"></span>
 
-
-        <h1>Sign In</h1>       
+        <h1>Sign In</h1>
 
         <form>
           <div className="input-wrapper">

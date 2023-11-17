@@ -11,7 +11,7 @@ import { logOut } from "../feature/user.slice";
  */
 const Header = () => {
   const [connected, setConnected] = useState(false);
-  const {firstName, isConnected } = useSelector((state) => state.user);
+  const {firstName, isConnected} = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleDisconnect = () => {
