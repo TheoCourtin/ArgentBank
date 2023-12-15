@@ -82,7 +82,7 @@ paths:
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Invalid ID
         "500":
           description: Internal Server Error
     put:
@@ -112,23 +112,28 @@ paths:
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
-          description: Invalid Fields
+          description: Invalid ID
         "500":
           description: Internal Server Error
-  /user/transaction:
-    post:
+  /user/transaction/account:
+    get:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Profile API
-      description: API for fetching the list of transaction
+      summary: Transaction's User Profile API
+      description: API for fetching the list of transaction's user
       parameters:
         - in: header
           type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+        - in: query
+          type: string
+          name: startDate
+          description: StartDate for transactions (format YYYY-MM-DD)
+          required: false
       produces:
         - application/json
       responses:
@@ -137,7 +142,7 @@ paths:
           schema:
             $ref: "#/definitions/Transactions"
         "400":
-          description: Invalid Fields
+          description: Invalid ID
         "500":
           description: Internal Server Error
     delete:
@@ -145,7 +150,7 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Profile API
+      summary: Transaction's User Profile API
       description: Delete a transaction to the database
       parameters:
         - in: header
@@ -165,16 +170,16 @@ paths:
         "204":
           description: Demande to delete transaction
         "400":
-          description: Invalid Fields
+          description: Invalid ID
         "500":
           description: Internal Server Error
-  /user/transaction/details:
+  /user/transaction/idTransaction:
     post:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Profile API
+      summary: Transaction's User id
       description: API for fetching transaction lists for the current month by Id
       parameters:
         - in: header
@@ -196,17 +201,17 @@ paths:
           schema:
             $ref: "#/definitions/TransactionsDetails"
         "400":
-          description: Invalid Fields
+          description: Invalid ID
         "500":
           description: Internal Server Error
-  /user/transaction/edit/category:
-    put:
+  /user/transaction/edit/:
+    patch:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: User Profile API
-      description: Edit the category transaction
+      summary: Transaction's User edit
+      description: Edit the category and the note transaction
       parameters:
         - in: header
           type: string
@@ -215,7 +220,7 @@ paths:
           required: true
         - in: body
           name: body
-          description: Send a category
+          description: Send a category or a note
           required: true
           schema:
             $ref: "#/definitions/BodyEditCategory"
@@ -227,38 +232,7 @@ paths:
           schema:
             $ref: "#/definitions/EditTransaction"
         "400":
-          description: Invalid Fields
-        "500":
-          description: Internal Server Error
-  /user/transaction/edit/notes:
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Transaction Module
-      summary: User Profile API
-      description: Edit the note transaction
-      parameters:
-        - in: header
-          type: string
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: body
-          name: body
-          description: Send a note
-          required: true
-          schema:
-            $ref: "#/definitions/BodyEditNote"
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: User transaction retrieved successully
-          schema:
-            $ref: "#/definitions/EditTransaction"
-        "400":
-          description: Invalid Fields
+          description: Invalid FieIDlds
         "500":
           description: Internal Server Error
 securityDefinitions:
@@ -332,6 +306,9 @@ definitions:
       category:
         type: string
         description: category of transaction
+      note:
+        type: string
+        description: notes of transaction
   BodyEditNote:
     type: object
     description: Edit notes of transaction
