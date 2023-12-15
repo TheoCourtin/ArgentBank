@@ -387,7 +387,6 @@ definitions:
       status:
         type: integer
       message:
-<<<<<<< HEAD
         type: string            description: transaction amount($)
           balance:
             type: string
@@ -408,6 +407,4 @@ definitions:
       status:
         type: integer
       message:
-=======
->>>>>>> b3b275bb55b96ad4c7ec72ea9d2e87a8e10cc583
         type: string
